@@ -71,4 +71,7 @@ modules.xml
 # output
 /target
 
+# log
+*.log
+
 # End of https://www.gitignore.io/api/intellij+all
