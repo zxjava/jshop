@@ -11,19 +11,20 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(value = "用户管理")
 @RestController
-public class HelloWord {
+@RequestMapping(value = "/api/user")
+public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     @ResponseBody
     public String test() {
         return "INDEX";
     }
 
     @ApiOperation(value = "添加用户", notes = "")
-    @RequestMapping(value = "/user/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     @ResponseBody
     public String addUser(){
         User user = new User();
@@ -37,7 +38,7 @@ public class HelloWord {
 
     @ApiOperation(value = "根据用户id查询用户", notes = "根据用户主键id查询用户")
     @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Long")
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Result getUserById(@PathVariable("id") Long id){
         Result result = new Result();

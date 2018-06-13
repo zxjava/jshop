@@ -21,5 +21,4 @@ public class JshopApplication  extends SpringBootServletInitializer {
         return application.sources(JshopApplication.class);
     }
 
-
 }

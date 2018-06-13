@@ -73,6 +73,7 @@ modules.xml
 
 # log
 *.log
+*.log.*.gz
 
 /src/test
 

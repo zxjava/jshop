@@ -1,6 +1,7 @@
-package com.jshop.jshop.Aop;
+package com.jshop.jshop.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
@@ -29,6 +29,7 @@ public class LoggerAspect {
 
         // 记录下请求内容
         logger.info("==============================================");
+        logger.info(request.getSession().getId());
         logger.info("URL : [" + request.getMethod() + "] " + request.getRequestURL().toString());
         logger.info("IP : " + request.getRemoteAddr());
         logger.info("CLASS_METHOD : " + p.getSignature().getDeclaringTypeName() + "."
