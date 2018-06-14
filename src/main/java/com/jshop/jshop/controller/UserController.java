@@ -1,13 +1,20 @@
 package com.jshop.jshop.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jshop.jshop.dto.Result;
 import com.jshop.jshop.model.User;
 import com.jshop.jshop.service.UserService;
+import com.jshop.jshop.util.EncryptUtils;
+import com.jshop.jshop.util.StringUtil;
+import com.jshop.jshop.util.UUIDGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.security.provider.MD5;
+
+import java.util.UUID;
 
 @Api(value = "用户管理")
 @RestController
@@ -28,8 +35,10 @@ public class UserController {
     @ResponseBody
     public String addUser(){
         User user = new User();
-        user.setAge(25);
         user.setName("张新杰");
+        user.setEmail("857065019@qq.com");
+        user.setPasswordSalt(UUIDGenerator.getUUID());
+        user.setPassword(EncryptUtils.encryptMD5("123456" + user.getPasswordSalt()));
         Integer res = userService.addUser(user);
         System.out.println(res);
         System.out.println(user.getId());
@@ -40,11 +49,12 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Long")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Result getUserById(@PathVariable("id") Long id){
+    public User getUserById(@PathVariable("id") Long id){
         Result result = new Result();
         User user = userService.findById(id);
+        user.setPasswordSalt("");
         result.setData(user);
-        return result;
+        return user;
     }
 
 }

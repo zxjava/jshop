@@ -5,6 +5,8 @@ import com.jshop.jshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserService {
 
@@ -12,6 +14,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public Integer addUser(User user){
+        user.setCreateTime(new Date());
         return userMapper.insert(user);
     }
 
@@ -20,6 +23,10 @@ public class UserService {
     }
 
     public User findById(Long id){
-        return userMapper.findById(id);
+        User user = new User();
+        user.setId(id);
+        return (User)userMapper.selectOne(user);
+
+//        return userMapper.findById(id);
     }
 }

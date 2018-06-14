@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
 
     private void toException(Exception e){
         StackTraceElement[] ste = e.getStackTrace();
+        logger.error(e.getMessage());
         for (StackTraceElement s:
              ste) {
             logger.error(s.toString());

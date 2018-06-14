@@ -1,5 +1,7 @@
 package com.jshop.jshop.dto;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class Result {
 
     public static final Integer SUCCESS = 200;
@@ -11,9 +13,9 @@ public class Result {
     public static final String MSG_ERROR_AUTH = "没有权限";
 
     private Integer code = SUCCESS;
-    private Object data;
+    private Object data = new JSONObject();
     private String msg = "";
-    private Page page;
+    private Page page = new Page(1, 10, 0);
 
     public Page getPage() {
         return page;
@@ -36,7 +38,7 @@ public class Result {
     }
 
     public void setData(Object data) {
-        this.data = data;
+        this.data = null == data ? new JSONObject() : data;
     }
 
     public String getMsg() {
