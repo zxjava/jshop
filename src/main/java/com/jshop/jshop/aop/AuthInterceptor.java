@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class AuthInterceptor implements HandlerInterceptor {
 
+    private final static String[] whiteList = {
+
+    };
+
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object o) throws Exception{
 
 
@@ -24,17 +28,17 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 
         String basePath = req.getServletPath();
-        if (!basePath.trim().startsWith("/api")) {
-            System.out.println("9999999999999999999999999999999999999999999");
-            res.setCharacterEncoding("utf-8");
-            res.setHeader("Content-type", "application/json");
-            Result result = new Result();
-            result.setCode(Result.ERROR_AUTH);
-            result.setMsg("非法请求");
-            res.getWriter().write(JSON.toJSONString(result));
-            res.getWriter().close();
-            return false;
-        }
+//        if (!basePath.trim().startsWith("/api")) {
+//            System.out.println("9999999999999999999999999999999999999999999");
+//            res.setCharacterEncoding("utf-8");
+//            res.setHeader("Content-type", "application/json");
+//            Result result = new Result();
+//            result.setCode(Result.ERROR_AUTH);
+//            result.setMsg("非法请求");
+//            res.getWriter().write(JSON.toJSONString(result));
+//            res.getWriter().close();
+//            return false;
+//        }
         System.out.println("----------------interceptor-doing------------------------");
         return true;
     }
@@ -47,7 +51,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             res.setHeader("Content-type", "application/json");
             Result result = new Result();
             result.setCode(status);
-            result.setMsg("非法请求");
+            result.setMsg(Result.getErrorMsg(status));
             res.getWriter().write(JSON.toJSONString(result));
             res.getWriter().close();
         }

@@ -1,7 +1,7 @@
 package com.jshop.jshop.mapper;
 
-import com.jshop.jshop.application.JshopMapper;
 import com.jshop.jshop.model.User;
+import com.jshop.jshop.application.JshopMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository

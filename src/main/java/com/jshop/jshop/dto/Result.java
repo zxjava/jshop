@@ -11,6 +11,9 @@ public class Result {
     public static final String MSG_ERROR_SYSTEM = "系统错误";
     public static final Integer ERROR_AUTH = 401;
     public static final String MSG_ERROR_AUTH = "没有权限";
+    public static final Integer NOT_FOUND = 404;
+    public static final String MSG_NOT_FOUND = "无效请求";
+
 
     private Integer code = SUCCESS;
     private Object data = new JSONObject();
@@ -47,5 +50,20 @@ public class Result {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public static String getErrorMsg(Integer status) {
+        switch (status) {
+            case 400:
+                return MSG_ERROR_PARAMS;
+            case 401:
+                return MSG_ERROR_AUTH;
+            case 404:
+                return MSG_NOT_FOUND;
+            case 500:
+                return MSG_ERROR_SYSTEM;
+            default:
+                return "未知异常";
+        }
     }
 }

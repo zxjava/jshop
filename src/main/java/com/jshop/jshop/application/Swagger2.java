@@ -1,5 +1,6 @@
 package com.jshop.jshop.application;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -14,6 +15,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2 {
 
+    @Value("${server.port}")
+    private String port;
+    @Value("${swagger2.title}")
+    private String title;
+    @Value("${swagger2.descrption}")
+    private String description;
+    @Value("${jshop.baseurl}")
+    private String baseUrl;
+    @Value("${jshop.version}")
+    private String version;
+    @Value("${jshop.created-by}")
+    private String createBy;
+
     @Bean
     public Docket createResApi(){
         return new Docket(DocumentationType.SWAGGER_2)
@@ -26,11 +40,11 @@ public class Swagger2 {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("RESTful APIs document for Jshop")
-                .description("api docs")
-                .termsOfServiceUrl("http://127.0.0.1:8080")
-                .contact("create by toy")
-                .version("1.0")
+                .title(title)
+                .description(description)
+                .termsOfServiceUrl(baseUrl + ":" + port)
+                .contact(createBy)
+                .version(version)
                 .build();
     }
 

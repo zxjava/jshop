@@ -1,6 +1,7 @@
 package com.jshop.jshop.application;
 
+import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
 
-public interface JshopMapper<T> extends tk.mybatis.mapper.common.Mapper<T>, MySqlMapper<T> {
+public interface JshopMapper<T> extends Mapper<T>, MySqlMapper<T> {
 }
