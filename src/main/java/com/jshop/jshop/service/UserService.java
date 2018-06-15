@@ -19,14 +19,14 @@ public class UserService {
     }
 
     public User findByName(String name){
-        return userMapper.findByName(name);
+        User user = new User();
+        user.setName(name);
+        return userMapper.selectOneByExample(user);
     }
 
     public User findById(Long id){
         User user = new User();
         user.setId(id);
-        return (User)userMapper.selectOne(user);
-
-//        return userMapper.findById(id);
+        return userMapper.selectOne(user);
     }
 }

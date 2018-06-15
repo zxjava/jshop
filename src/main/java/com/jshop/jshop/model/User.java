@@ -1,6 +1,6 @@
 package com.jshop.jshop.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class User {
     private String passwordSalt;
 
     @Column(name = "create_time")
-    @DateTimeFormat(style = "YYYY-MM-DD HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public Long getId() {
