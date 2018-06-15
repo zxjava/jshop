@@ -1,12 +1,11 @@
 package com.jshop.jshop.mapper;
 
+import com.jshop.jshop.application.JshopMapper;
 import com.jshop.jshop.model.User;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 @Repository
-public interface UserMapper extends Mapper<User>, MySqlMapper<User> {
+public interface UserMapper extends JshopMapper<User> {
 
 //    @Insert("insert into user(name, email, password, password_salt) values(#{user.name}, #{user.email}, #{user.password}, #{user.passwordSalt})")
 //    @Options(useGeneratedKeys = true, keyProperty = "user.id")

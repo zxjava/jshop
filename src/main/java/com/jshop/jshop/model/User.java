@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table
+@Table(name = "user")
 public class User {
 
     @Id

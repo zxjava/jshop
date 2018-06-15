@@ -8,7 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.jshop.jshop.*"})
+@ComponentScan(
+        basePackages = {
+                "com.jshop.jshop.*"
+        })
 @MapperScan(value = "tk.mybatis.mapper.annotation",
         basePackages = {"com.jshop.jshop.mapper"}
 )

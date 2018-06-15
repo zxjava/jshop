@@ -28,14 +28,14 @@ public class LoggerAspect {
         HttpServletRequest request = attributes.getRequest();
 
         // 记录下请求内容
-        logger.info("==============================================");
+        logger.info("===============LOG BEGIN===============================");
         logger.info(request.getSession().getId());
         logger.info("URL : [" + request.getMethod() + "] " + request.getRequestURL().toString());
         logger.info("IP : " + request.getRemoteAddr());
         logger.info("CLASS_METHOD : " + p.getSignature().getDeclaringTypeName() + "."
                 + p.getSignature().getName());
         logger.info("ARGS : " + Arrays.toString(p.getArgs()));
-        logger.info("==============================================");
+        logger.info("===================LOG END===========================");
     }
 
 }

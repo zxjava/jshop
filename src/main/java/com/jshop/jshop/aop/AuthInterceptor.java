@@ -15,16 +15,17 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object o) throws Exception{
 
 
-        System.out.println("----------------interceptor-------------------------");
+        System.out.println("----------------interceptor--begin-----------------------");
         System.out.println(req.getRequestURL().toString());
         System.out.println(req.getPathInfo());
         System.out.println(req.getContextPath());
         System.out.println(req.getServletPath());
         System.out.println(req.getQueryString());
-        System.out.println("----------------interceptor-------------------------");
+
 
         String basePath = req.getServletPath();
         if (!basePath.trim().startsWith("/api")) {
+            System.out.println("9999999999999999999999999999999999999999999");
             res.setCharacterEncoding("utf-8");
             res.setHeader("Content-type", "application/json");
             Result result = new Result();
@@ -34,12 +35,23 @@ public class AuthInterceptor implements HandlerInterceptor {
             res.getWriter().close();
             return false;
         }
-
+        System.out.println("----------------interceptor-doing------------------------");
         return true;
     }
 
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object o, ModelAndView view) throws Exception{
-
+        int status = res.getStatus();
+        System.out.println("========返回状态码====》" + status);
+        if (status != 200) {
+            res.setCharacterEncoding("utf-8");
+            res.setHeader("Content-type", "application/json");
+            Result result = new Result();
+            result.setCode(status);
+            result.setMsg("非法请求");
+            res.getWriter().write(JSON.toJSONString(result));
+            res.getWriter().close();
+        }
+        System.out.println("----------------interceptor-end------------------------");
     }
 
     public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object o) throws Exception{
