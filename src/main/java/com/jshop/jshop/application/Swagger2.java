@@ -39,10 +39,11 @@ public class Swagger2 {
     }
 
     private ApiInfo apiInfo(){
+        String basePath = baseUrl + ":" + port;
         return new ApiInfoBuilder()
                 .title(title)
-                .description(description)
-                .termsOfServiceUrl(baseUrl + ":" + port)
+                .description(description + "\n 访问地址：" + basePath)
+                .termsOfServiceUrl(basePath)
                 .contact(createBy)
                 .version(version)
                 .build();

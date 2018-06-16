@@ -1,5 +1,4 @@
-
-CREATE SCHEMA `test` DEFAULT CHARACTER SET utf8 ;
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
 use test;
 

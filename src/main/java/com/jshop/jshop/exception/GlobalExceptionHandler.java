@@ -34,6 +34,16 @@ public class GlobalExceptionHandler {
         return result;
     }
 
+    @ExceptionHandler(value = ParamterException.class)
+    @ResponseBody
+    public Result aramterExceptionHandler(HttpServletRequest req, ParamterException e){
+        toException(e);
+        Result result = new Result();
+        result.setCode(e.getCode());
+        result.setMsg(e.getMsg());
+        return result;
+    }
+
     private void toException(Exception e){
         StackTraceElement[] ste = e.getStackTrace();
         logger.error(e.getMessage());

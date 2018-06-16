@@ -1,9 +1,14 @@
 package com.jshop.jshop.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jshop.jshop.dto.Result;
+import com.jshop.jshop.exception.JshopException;
+import com.jshop.jshop.exception.ParamterException;
 import com.jshop.jshop.model.User;
 import com.jshop.jshop.service.UserService;
 import com.jshop.jshop.util.EncryptUtils;
+import com.jshop.jshop.util.RegexUtil;
+import com.jshop.jshop.util.StringUtil;
 import com.jshop.jshop.util.UUIDGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -19,25 +24,29 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    @ApiOperation(value = "添加用户", notes = "返回添加的用户，[name/email/password] json格式，")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String test() {
-        return "INDEX";
-    }
+    public Result addUser(@RequestBody(required = true) User user) throws JshopException,ParamterException {
+        if (!RegexUtil.isPassword(user.getPassword())) {
+            throw new ParamterException("密码为6-16位字母或数字的组合");
+        }
+        if (!RegexUtil.isUsernameCn(user.getName(), 2, 10)) {
+            throw new ParamterException("用户名为长度为2-10的中文字符");
+        }
+        if (!RegexUtil.isEmail(user.getEmail())) {
+            throw new ParamterException("email格式不正确");
+        }
 
-    @ApiOperation(value = "添加用户", notes = "")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    @ResponseBody
-    public String addUser(){
-        User user = new User();
-        user.setName("张新杰");
-        user.setEmail("857065019@qq.com");
         user.setPasswordSalt(UUIDGenerator.getUUID());
-        user.setPassword(EncryptUtils.encryptMD5("123456" + user.getPasswordSalt()));
-        Integer res = userService.addUser(user);
-        System.out.println(res);
-        System.out.println(user.getId());
-        return user.getId().toString();
+        user.setPassword(EncryptUtils.encryptMD5(user.getPassword() + user.getPasswordSalt()));
+
+        System.out.println(JSONObject.toJSONString(user));
+
+        userService.addUser(user);
+        Result res = new Result();
+        res.setData(user);
+        return res;
     }
 
     @ApiOperation(value = "根据用户id查询用户", notes = "根据用户主键id查询用户")

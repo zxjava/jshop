@@ -20,40 +20,6 @@ import java.util.regex.Pattern;
  * Created by xujiawei on 2016/4/28.
  */
 public class StringUtil {
-    /**
-     * 检测是否有特殊字符
-     * @param text
-     * @return
-     */
-    public static boolean chkSpecialString(String text) {
-        String str = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
-        Pattern pattern = Pattern.compile(str);
-        Matcher match = pattern.matcher(text);
-        if (match.find())
-            return true;
-        else
-            return false;
-    }
-
-    /**
-     * 检测SQL关键字防止SQL注入
-     * @param text 文本内容
-     * @return
-     */
-    public static String chkSQLString(String text) {
-        String strResult = text;
-        String strKeyword = "DELETE|UPDATE|DROP|UNION|SELECT|EXEC|XP_CMDSHELL|XP_REGREAD|CHAR(|TRUNCATE";
-        strResult = strResult.replace("'", "''");
-        strResult = strResult.replace(";", "");
-        String[] arr_str = strKeyword.split("\\|");
-        for (String str : arr_str) {
-            if (strResult.indexOf(str) >= 0) {
-                strResult = "";
-                break;
-            }
-        }
-        return strResult;
-    }
 
     /**
      * Get hex string from byte array
